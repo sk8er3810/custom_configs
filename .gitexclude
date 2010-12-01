@@ -1,0 +1,78 @@
+# git-ls-files --others --exclude-from=.git/info/exclude
+# Lines that start with '#' are comments.
+# For a project mostly in C, the following would be a good set of
+# exclude patterns (uncomment them if you want to use them):
+# *.[oa]
+# *~
+
+#Subfolders
+
+#source control repositories
+#Mercurial
+.hg
+#Subversion
+.svn
+#Concurrent Version System
+.cvs
+
+# Visual Studio Generated Files
+#Solution settings
+*.suo
+#Intellisense file
+*.ncb
+#Debugging symbols
+*.pdb
+*.Cache
+*.cache
+*.manifest
+*.meta
+*.exp
+#compile object file
+*.obj
+#build file
+*.lib
+*.sbr
+*.bsc
+*.idb
+#ActiveX control
+*.ocx
+*.ilk
+*.tlb
+#compiled help file
+*.hpj
+*.cnt
+#Executable
+*.exe
+#Dynamic Linked Library
+*.dll
+#old visual studio project
+*.dsp
+#old visual studio workspace
+*.dsw
+#precompiled header
+*.pch
+
+#Visual Sourcesafe
+*.vssscc
+*.vspscc
+*.scc
+*.user
+
+#Visual Studio build folders
+Debug
+Release
+bin
+obj
+help
+hlp
+
+# Help Files
+*.chm
+
+#???
+metagen.dep
+mt.dep
+TempPE
+Refactor
+*.aps
+*.APS

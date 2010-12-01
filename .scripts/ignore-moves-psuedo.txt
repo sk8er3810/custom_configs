@@ -1,0 +1,24 @@
+array of indexes (our lookup table)
+read the file into an array
+loop through the array of lines
+  if the line matches ^---
+    if the next line matches ^+++
+    this means we have a diff file block
+      add line number to our lookup table
+add the last line of the index to our lookup table
+these line numbers indicate sections of a file
+
+Look at each section in our diff to determine line that have moved
+for each element in our lookup table
+# indicates a single file section
+  linenum1 = element[i]
+  linenum2 = element[i+1]
+  for i = linenum1; i < linenum2; i++
+    line = lines[i]
+    if line matches ^+ 
+        for j = linenum1; j < linenum2; j++
+          line2 = lines[j]
+          if line2 matches ^-
+            if substring(line, 1) equals substring(line2, 1)
+              lines[i][0] = "="
+              lines[j][0] = "="
