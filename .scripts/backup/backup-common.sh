@@ -1,19 +1,20 @@
 #!/bin/bash
 backup ()
 {
+BACKUP_PROG=/usr/bin/rdiff-backup
 SOURCE_DIR=$1
 DESTINATION_DIR=$2
 if [ -w $DESTINATION_DIR ]; then
 
    echo "Performing ${TYPE} rdiff-backup of ${SOURCE_DIR}"
-   rdiff-backup --no-compression --exclude-symbolic-links ${EXCLUDE_REGEX} --exclude-globbing-filelist ~/.scripts/backup/exclude.txt ${SOURCE_DIR} ${DESTINATION_DIR}
+   ${BACKUP_PROG} --no-compression --exclude-symbolic-links ${EXCLUDE_REGEX} --exclude-globbing-filelist ~/.scripts/backup/exclude.txt ${SOURCE_DIR} ${DESTINATION_DIR}
    echo -e "Finished rdiff-backup of ${SOURCE_DIR}\n"
 
    echo "Removing backups older than ${NUM_DAYS}"
-   rdiff-backup --force --remove-older-than ${NUM_DAYS} ${DESTINATION_DIR}
+   ${BACKUP_PROG} --force --remove-older-than ${NUM_DAYS} ${DESTINATION_DIR}
    echo -e "Finished removing old backups of ${SOURCE_DIR}\n\n"
 else
-   echo "NOT ABLE TO BACKUP TO ${DESTINATION_DIR}"
+   echo "NOT ABLE TO WRITE TO ${DESTINATION_DIR}"
 fi
 }
 
