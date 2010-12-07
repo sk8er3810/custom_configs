@@ -105,7 +105,7 @@ PS1="${txtgrn}\u@\h${txtrst} "
 
 # display the git branch in the prompt if possible
 [ -f ~/.scripts/mygitcompletion.bash ] && source ~/.scripts/mygitcompletion.bash
-[ "`type -t __git_ps1`" == "function" ] && PS1=${PS1}$(__git_ps1 "[git:%s]")
+[ "`type -t __git_ps1`" == "function" ] && PS1="${PS1}\$(__git_ps1 \"[git:%s]\")"
 
 PS1=${PS1}":${txtgry}\w${txtrst}\n\$ "
 export PS1
