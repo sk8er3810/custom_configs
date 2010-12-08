@@ -17,16 +17,23 @@ $TAR cf $TAROUTPUT $TARINPUT/hourly $TARINPUT/daily $TARINPUT/weekly $TARINPUT/m
 
 $MD5 $TAROUTPUT > $MD5OUTPUT
 
+# Copy to external sata drive
+DEST=/cygdrive/t
+if [ ! -w $DEST ] ; then
+    read -p "Please connect to the server...";
+fi
+cp -f $TAROUTPUT $MD5OUTPUT $SERVER/Mike
+
 # Copy to server
-SERVER=/cygdrive/y
-if [ ! -w $SERVER ] ; then
+DEST=/cygdrive/y
+if [ ! -w $DEST ] ; then
     read -p "Please connect to the server...";
 fi
 cp -f $TAROUTPUT $MD5OUTPUT $SERVER/Mike
 
 # Copy to flash drive
-EXTERNAL=/cygdrive/z
-if [ ! -w $EXTERNAL ] ; then
+DEST=/cygdrive/z
+if [ ! -w $DEST ] ; then
     read -p "Please connect your thumb drive...";
 fi
 
