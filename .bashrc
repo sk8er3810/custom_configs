@@ -17,11 +17,7 @@ export EDITOR=vim
 # TMP and TEMP are defined in the Windows environment.  Leaving
 # them set to the default Windows temporary directory can have
 # unexpected consequences.
-unset TMP
-unset TEMP
-
-# Alternatively, set them to the Cygwin temporary directory
-# or to any other tmp directory of your choice
+# set them to the Cygwin temporary directory
 export TMP=/tmp
 export TEMP=/tmp
 
@@ -36,9 +32,6 @@ export PATH=$PATH:"/cygdrive/c/Program Files (x86)/Notepad++";
 
 # Don't wait for job termination notification
 set -o notify
-
-# Don't use ^D to exit
-# set -o ignoreeof
 
 # if arg to cd is not a directory, use the name of a variable 
 # whose value is the directory 
@@ -65,17 +58,11 @@ shopt -s checkwinsize
 # Completion options
 # ##################
 
-# These completion tuning parameters change the default behavior of bash_completion:
-
-# Define to avoid flattening internal contents of tar files
-# COMP_TAR_INTERNAL_PATHS=1
-
-# If this shell is interactive, turn on programmable completion enhancements.
+# Check for that we haven't already sourced completion.
 # Any completions you add in ~/.bash_completion are sourced last.
-# case $- in
-#   *i*) [ -f /etc/bash_completion ] && . /etc/bash_completion ;;
-# esac
-
+if [ -z "$BASH_COMPLETION" ] && [ -f /etc/bash_completion ]; then
+  source /etc/bash_completion 
+fi
 
 # History Options
 # ###############
@@ -94,19 +81,42 @@ export HISTSIZE=2048
 export HISTFILESIZE=4096
 export HISTTIMEFORMAT='%F %T '
 
-# Whenever displaying the prompt, write the previous line to disk
-export PROMPT_COMMAND="history -a"
 
 # Shortcut for terminal colors for PS1
 [ -f ~/.bash_colors ] && source ~/.bash_colors
 
+function prompt_command {
+  # Whenever displaying the prompt, write the previous line to disk
+  history -a
+
+  # save the current git branch if within a git repo
+  SCM_BRANCH=$(__git_ps1 "(git:%s)" 2> /dev/null)
+
+  # Find the width of the prompt:
+  TERMWIDTH=${COLUMNS}
+
+  # Add all the accessories below ...
+  local tempPS1="-(${USER}@${HOSTNAME})-${SCM_BRANCH}-(${PWD})-"
+  fill=""
+  # how much more do we need to fill
+  let fillsize=${TERMWIDTH}-${#tempPS1}-2
+  if [ "$fillsize" -gt "0" ]; then
+    for i in $(seq ${fillsize}); do
+      fill="${fill}-"
+    done
+    newPWD="${PWD}"
+  elif [ "$fillsize" -lt "0" ]; then
+    fill=""
+    let cut=3-${fillsize}
+    newPWD="...${PWD:${cut}}"
+  fi
+}
+
+PROMPT_COMMAND="prompt_command"
+
+hcolor=${txtpur}
 # Set my prompt variable
-PS1="${txtgrn}\u@\h${txtrst} "
-
-# display the git branch in the prompt if possible
-[ -f ~/.scripts/mygitcompletion.bash ] && source ~/.scripts/mygitcompletion.bash
-[ "`type -t __git_ps1`" == "function" ] && PS1="${PS1}\$(__git_ps1 \"[git:%s]\")"
-
-PS1=${PS1}":${txtgry}\w${txtrst}\n\$ "
-export PS1
+export PS1="-(${txtgrn}\u${txtrst}@${hcolor}\h${txtrst})\
+-\${SCM_BRANCH}-\${fill}-(${bldblu}\${newPWD}${txtrst})-\n\
+$ "
 
