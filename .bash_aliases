@@ -1,8 +1,17 @@
 # ~/.bash_aliases
 
-alias np='notepad++'
+if [ "$(uname -s)" = "Cygwin" ]; then
+  alias np='c:/Program Files (x86)/Notepad++/notepad++.exe'
+fi
 
-alias ls='ls --color=auto --ignore="NTUSER*"'
+if [ "$(uname -s)" = "Darwin" ]; then
+  alias ls='ls -G'
+else
+  alias dir='ls --color=auto --format=vertical'
+  alias vdir='ls --color=auto --format=long'
+  alias ls='ls --color=auto --ignore="NTUSER*"'
+fi
+    
 alias grep='grep --color=auto'
 
 # Aliases
@@ -31,8 +40,6 @@ alias ds='du -s'
 
 # Some shortcuts for different directory listings
 # alias ls='ls -hF --color=tty'                 # classify files in colour
-alias dir='ls --color=auto --format=vertical'
-alias vdir='ls --color=auto --format=long'
 alias ll='ls -l'                              # long list
 alias la='ls -A'                              # all but . and ..
 alias l='ls -CF'                              #
