@@ -24,8 +24,6 @@ export TEMP=/tmp
 # Or use TMPDIR instead
 export TMPDIR=/tmp
 
-export PATH=$PATH:"/cygdrive/c/Program Files (x86)/Notepad++";
-
 
 # Shell Options
 # #############
@@ -64,6 +62,7 @@ if [ -z "$BASH_COMPLETION" ] && [ -f /etc/bash_completion ]; then
   source /etc/bash_completion 
 fi
 
+
 # History Options
 # ###############
 
@@ -101,8 +100,9 @@ function prompt_command {
   # how much more do we need to fill
   let fillsize=${TERMWIDTH}-${#tempPS1}-2
   if [ "$fillsize" -gt "0" ]; then
-    for i in $(seq ${fillsize}); do
+    while [ $fillsize -gt "0" ]; do
       fill="${fill}-"
+      let fillsize=${fillsize}-1
     done
     newPWD="${PWD}"
   elif [ "$fillsize" -lt "0" ]; then
@@ -114,7 +114,15 @@ function prompt_command {
 
 PROMPT_COMMAND="prompt_command"
 
-hcolor=${txtpur}
+case $HOSTNAME in
+  jarule)
+    hcolor=${txtred} ;;
+  mikebook)
+    hcolor=${txtgry} ;;
+  *)
+    hcolor=${txtpur} ;;
+esac
+
 # Set my prompt variable
 export PS1="-(${txtgrn}\u${txtrst}@${hcolor}\h${txtrst})\
 -\${SCM_BRANCH}-\${fill}-(${bldblu}\${newPWD}${txtrst})-\n\
