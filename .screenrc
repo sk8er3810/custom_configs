@@ -1,4 +1,3 @@
-shell "/usr/bin/zsh"
 escape ^Ll # Instead of Control-a, make the escape/command character be Control-l
 
 autodetach on # Autodetach session on hangup instead of terminating screen completely
