@@ -105,7 +105,7 @@ function prompt_command {
       let fillsize=${fillsize}-1
     done
     newPWD="${PWD}"
-  elif [ "$fillsize" -lt "0" ]; then
+  elif [ "$fillsize" -le "0" ]; then
     fill=""
     let cut=3-${fillsize}
     newPWD="...${PWD:${cut}}"
