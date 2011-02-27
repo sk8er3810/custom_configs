@@ -128,3 +128,4 @@ export PS1="-(${txtgrn}\u${txtrst}@${hcolor}\h${txtrst})\
 -\${SCM_BRANCH}-\${fill}-(${bldblu}\${newPWD}${txtrst})-\n\
 $ "
 
+PATH="$PATH:/Library/Developer/android-sdk-mac_x86/platform-tools"
