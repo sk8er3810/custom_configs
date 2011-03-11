@@ -1,9 +1,9 @@
 #!/bin/bash
-TARINPUT=/cygdrive/x/backup
-TAROUTPUT=/cygdrive/x/backup.tar
+TARINPUT=/cygdrive/c/backup
+TAROUTPUT=/cygdrive/c/backup.tar
 TAR=tar
 MD5=md5sum
-MD5OUTPUT=/cygdrive/x/backup.tar.$MD5
+MD5OUTPUT=/cygdrive/c/backup.tar.$MD5
 
 # Tar likes to be executed in the same directory as the archive 
 #cd /cygdrive/x
@@ -22,21 +22,20 @@ DEST=/cygdrive/t
 if [ ! -w $DEST ] ; then
     read -p "Please connect to the server...";
 fi
-cp -f $TAROUTPUT $MD5OUTPUT $SERVER/Mike
+cp -f $TAROUTPUT $MD5OUTPUT $DEST
 
 # Copy to server
-DEST=/cygdrive/y
+DEST=/cygdrive/y/Mike
 if [ ! -w $DEST ] ; then
     read -p "Please connect to the server...";
 fi
-cp -f $TAROUTPUT $MD5OUTPUT $SERVER/Mike
+cp -f $TAROUTPUT $MD5OUTPUT $DEST
 
 # Copy to flash drive
 DEST=/cygdrive/z
 if [ ! -w $DEST ] ; then
     read -p "Please connect your thumb drive...";
 fi
-
-cp -f $TAROUTPUT $MD5OUTPUT $EXTERNAL
+cp -f $TAROUTPUT $MD5OUTPUT $DEST
 
 read -p "Press enter to close"
