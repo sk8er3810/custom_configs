@@ -30,12 +30,11 @@ TYPE=${2}
 
 #Backup local git repository
 SOURCE_DIR="/cygdrive/c/src"
-DESTINATION_DIR="/cygdrive/c/backup/${TYPE}/src"
+DESTINATION_DIR="/cygdrive/t/backup/${TYPE}/src"
 backup ${SOURCE_DIR} ${DESTINATION_DIR} ${NUM_DAYS}
 
 #Backup home directory
 SOURCE_DIR=~
-DESTINATION_DIR="/cygdrive/c/backup/${TYPE}/mike"
-OPTIONS="--exclude **/.VirtualBox --exclude **/AppData --exclude **/Documentation --exclude **/CW_Vault.tc"
+DESTINATION_DIR="/cygdrive/t/backup/${TYPE}/mike"
 backup ${SOURCE_DIR} ${DESTINATION_DIR} ${NUM_DAYS}
-OPTIONS=""
+
