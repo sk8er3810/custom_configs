@@ -21,6 +21,8 @@
 #Intellisense file
 *.ncb
 #Debugging symbols
+*.opensdf
+*.sdf
 *.pdb
 *.Cache
 *.cache
@@ -65,6 +67,7 @@ bin
 obj
 help
 hlp
+ipch
 
 # Help Files
 *.chm
