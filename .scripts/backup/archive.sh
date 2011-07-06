@@ -3,9 +3,17 @@
 function copy_to_dest
 {
   DEST=$1
-  if [ ! -w $DEST ] ; then
-    read -p "Please make sure that $DEST is writable."
-  fi
+  while :
+  do
+    if [ ! -w $DEST ] ; then
+      read -p "Please make sure that $DEST is writable. Press q to quit..." input
+    else
+      break
+    fi
+    if [ "$input" == "q" ] ; then
+      break
+    fi
+  done
   cp -f $TAROUTPUT $MD5OUTPUT $DEST
 }
 
