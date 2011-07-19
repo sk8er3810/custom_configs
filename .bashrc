@@ -76,9 +76,13 @@ export HISTIGNORE=$'[ \t]*:&:[fb]g:exit:ls'
 export HISTCONTROL="ignoreboth"
 
 # double the size of the command history
-export HISTSIZE=2048
-export HISTFILESIZE=4096
+HISTSIZE=20000
+#export HISTSIZE=2048
+unset HISTFILESIZE
+#export HISTFILESIZE=4096
 export HISTTIMEFORMAT='%F %T '
+
+~/.scripts/bash_history_archive.sh
 
 
 # Shortcut for terminal colors for PS1
