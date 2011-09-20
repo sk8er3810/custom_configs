@@ -132,3 +132,8 @@ export PS1="-(${txtgrn}\u${txtrst}@${hcolor}\h${txtrst})\
 -\${SCM_BRANCH}-\${fill}-(${bldblu}\${newPWD}${txtrst})-\n\
 $ "
 
+function path
+{
+    local IFS=: ;
+    printf "%s\n" $PATH;
+}
