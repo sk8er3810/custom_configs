@@ -30,11 +30,11 @@ TYPE=${2}
 
 #Backup local git repository
 SOURCE_DIR="/cygdrive/c/src"
-DESTINATION_DIR="/cygdrive/t/backup/${TYPE}/src"
+DESTINATION_DIR="/cygdrive/t/backup/src/${TYPE}"
 backup ${SOURCE_DIR} ${DESTINATION_DIR} ${NUM_DAYS}
 
 #Backup home directory
 SOURCE_DIR=~
-DESTINATION_DIR="/cygdrive/t/backup/${TYPE}/mike"
+DESTINATION_DIR="/cygdrive/t/backup/mike/${TYPE}"
 backup ${SOURCE_DIR} ${DESTINATION_DIR} ${NUM_DAYS}
 

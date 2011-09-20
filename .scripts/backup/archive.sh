@@ -34,7 +34,7 @@ done
 cd $RDIFFBDIR
 
 # Create an archive of the backups and a checksum
-$TAR cf $TAROUTPUT weekly monthly redmine
+$TAR cf $TAROUTPUT mike src/weekly src/monthly redmine
 $MD5 $TAROUTPUT > $MD5OUTPUT
 
 # Copy to server
