@@ -137,3 +137,12 @@ function path
     local IFS=: ;
     printf "%s\n" $PATH;
 }
+
+if [ "$OSTYPE" = 'darwin' ]; then
+  PATH="$PATH:/Library/Developer/android-sdk-mac_x86/platform-tools"
+elif [ "$OSTYPE" = 'cygwin' ]; then
+  PATH="$PATH:/cygdrive/c/tools/android-sdk-windows/platform-tools"
+elif [ "$OSTYPE" = 'linux-gnu' ]; then
+  PATH="$PATH:/tools/android-sdk-linux/platform-tools"
+fi
+
