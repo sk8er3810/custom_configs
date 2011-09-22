@@ -128,4 +128,10 @@ export PS1="-(${txtgrn}\u${txtrst}@${hcolor}\h${txtrst})\
 -\${SCM_BRANCH}-\${fill}-(${bldblu}\${newPWD}${txtrst})-\n\
 $ "
 
-PATH="$PATH:/Library/Developer/android-sdk-mac_x86/platform-tools"
+# macport paths
+PATH=$PATH:/opt/local/bin:/opt/local/sbin;
+# ???
+PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/git/bin:/usr/X11/bin;
+# Development paths
+PATH=$PATH:/Library/Developer/android-sdk-mac_x86/platform-tools:/Volumes/CyanogenMod/bin/:/Developer/usr/bin
+
