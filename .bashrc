@@ -1,4 +1,5 @@
 # .bashrc file
+#echo "Running .bashrc"
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
@@ -76,9 +77,13 @@ export HISTIGNORE=$'[ \t]*:&:[fb]g:exit:ls'
 export HISTCONTROL="ignoreboth"
 
 # double the size of the command history
-export HISTSIZE=2048
-export HISTFILESIZE=4096
+HISTSIZE=20000
+#export HISTSIZE=2048
+unset HISTFILESIZE
+#export HISTFILESIZE=4096
 export HISTTIMEFORMAT='%F %T '
+
+~/.scripts/bash_history_archive.sh
 
 
 # Shortcut for terminal colors for PS1
@@ -128,10 +133,22 @@ export PS1="-(${txtgrn}\u${txtrst}@${hcolor}\h${txtrst})\
 -\${SCM_BRANCH}-\${fill}-(${bldblu}\${newPWD}${txtrst})-\n\
 $ "
 
-# macport paths
-PATH=$PATH:/opt/local/bin:/opt/local/sbin;
-# ???
-PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/git/bin:/usr/X11/bin;
-# Development paths
-PATH=$PATH:/Library/Developer/android-sdk-mac_x86/platform-tools:/Volumes/CyanogenMod/bin/:/Developer/usr/bin
+function path
+{
+    local IFS=: ;
+    printf "%s\n" $PATH;
+}
+
+
+if [ "$(uname -s)" = 'Darwin' ]; then
+  # macport paths
+  PATH=/opt/local/bin:/opt/local/sbin:$PATH
+  # Development paths
+  PATH=$PATH:/Library/Developer/android-sdk-mac_x86/platform-tools:/Volumes/CyanogenMod/bin/:/Developer/usr/bin
+
+elif [ "$OSTYPE" = 'cygwin' ]; then
+  PATH="$PATH:/cygdrive/c/tools/android-sdk-windows/platform-tools"
+elif [ "$OSTYPE" = 'linux-gnu' ]; then
+  PATH="$PATH:/tools/android-sdk-linux/platform-tools"
+fi
 

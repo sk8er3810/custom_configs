@@ -29,13 +29,12 @@ NUM_DAYS=${1}
 TYPE=${2}
 
 #Backup local git repository
-SOURCE_DIR="/cygdrive/x/src"
-DESTINATION_DIR="/cygdrive/x/backup/${TYPE}/src"
+SOURCE_DIR="/cygdrive/c/src"
+DESTINATION_DIR="/cygdrive/t/backup/src/${TYPE}"
 backup ${SOURCE_DIR} ${DESTINATION_DIR} ${NUM_DAYS}
 
 #Backup home directory
 SOURCE_DIR=~
-DESTINATION_DIR="/cygdrive/x/backup/${TYPE}/mike"
-OPTIONS="--exclude **/.VirtualBox --exclude **/AppData --exclude **/Documentation --exclude **/CW_Vault.tc"
+DESTINATION_DIR="/cygdrive/t/backup/mike/${TYPE}"
 backup ${SOURCE_DIR} ${DESTINATION_DIR} ${NUM_DAYS}
-OPTIONS=""
+

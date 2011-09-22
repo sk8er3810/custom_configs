@@ -1,42 +1,46 @@
 #!/bin/bash
-TARINPUT=/cygdrive/x/backup
-TAROUTPUT=/cygdrive/x/backup.tar
-TAR=tar
-MD5=md5sum
-MD5OUTPUT=/cygdrive/x/backup.tar.$MD5
 
-# Tar likes to be executed in the same directory as the archive 
-#cd /cygdrive/x
+function copy_to_dest
+{
+  DEST=$1
+  while :
+  do
+    if [ ! -w $DEST ] ; then
+      read -p "Please make sure that $DEST is writable. Press q to quit..." input
+    else
+      break
+    fi
+    if [ "$input" == "q" ] ; then
+      break
+    fi
+  done
+  cp -f $TAROUTPUT $MD5OUTPUT $DEST
+}
 
-while [ ! -e $TARINPUT ] ; do
+TAR=/usr/bin/tar
+MD5=/usr/bin/md5sum
+RDIFFBDIR=/cygdrive/t/backup/
+FILENAME=backup-archive
+TAROUTPUT=$FILENAME.tar
+MD5OUTPUT=$FILENAME.tar.md5
+SERVER=/cygdrive/y/Mike/
+FLASHDRIVE=/cygdrive/z/
+
+while [ ! -e $RDIFFBDIR ] ; do
     read -p "Please mount the partition $TARINPUT exists on and press enter.";
 done
 
-# Create an archive of the backups
-$TAR cf $TAROUTPUT $TARINPUT/hourly $TARINPUT/daily $TARINPUT/weekly $TARINPUT/monthly
+# Tar likes to be executed in the same directory as the archive 
+cd $RDIFFBDIR
 
+# Create an archive of the backups and a checksum
+$TAR cf $TAROUTPUT mike src/weekly src/monthly redmine
 $MD5 $TAROUTPUT > $MD5OUTPUT
 
-# Copy to external sata drive
-DEST=/cygdrive/t
-if [ ! -w $DEST ] ; then
-    read -p "Please connect to the server...";
-fi
-cp -f $TAROUTPUT $MD5OUTPUT $SERVER/Mike
-
 # Copy to server
-DEST=/cygdrive/y
-if [ ! -w $DEST ] ; then
-    read -p "Please connect to the server...";
-fi
-cp -f $TAROUTPUT $MD5OUTPUT $SERVER/Mike
+copy_to_dest $SERVER
 
 # Copy to flash drive
-DEST=/cygdrive/z
-if [ ! -w $DEST ] ; then
-    read -p "Please connect your thumb drive...";
-fi
-
-cp -f $TAROUTPUT $MD5OUTPUT $EXTERNAL
+copy_to_dest $FLASHDRIVE
 
 read -p "Press enter to close"
