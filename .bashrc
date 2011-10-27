@@ -144,7 +144,7 @@ if [ "$(uname -s)" = 'Darwin' ]; then
   # macport paths
   PATH=/opt/local/bin:/opt/local/sbin:$PATH
   # Development paths
-  PATH=$PATH:/Library/Developer/android-sdk-mac_x86/platform-tools:/Volumes/CyanogenMod/bin/:/Developer/usr/bin
+  PATH=$PATH:/usr/local/git/bin:/Library/Developer/android-sdk-mac_x86/platform-tools:/Volumes/CyanogenMod/bin/:/Developer/usr/bin
 
 elif [ "$OSTYPE" = 'cygwin' ]; then
   PATH="$PATH:/cygdrive/c/tools/android-sdk-windows/platform-tools"
