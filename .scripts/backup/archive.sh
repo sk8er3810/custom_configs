@@ -11,7 +11,7 @@ function copy_to_dest
       break
     fi
     if [ "$input" == "q" ] ; then
-      break
+      return
     fi
   done
   cp -f $TAROUTPUT $MD5OUTPUT $DEST
