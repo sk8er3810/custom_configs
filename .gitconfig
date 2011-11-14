@@ -8,7 +8,7 @@
     editor       = vim
     pager        = less -FRSX
     autocrlf     = false
-    excludesfile = .gitexclude
+    excludesfile = ~/.gitexclude
 [color]
     ui = auto
 [gui]

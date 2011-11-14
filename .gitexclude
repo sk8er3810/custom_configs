@@ -79,3 +79,16 @@ TempPE
 Refactor
 *.aps
 *.APS
+
+# Android
+# build application
+*.apk
+*.ap_
+# files for dex VM
+*.dex
+# Java class (obj)
+*.class
+# generated files
+bin
+gen
+local.properties
