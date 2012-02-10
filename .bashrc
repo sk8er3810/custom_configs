@@ -83,6 +83,7 @@ unset HISTFILESIZE
 #export HISTFILESIZE=4096
 export HISTTIMEFORMAT='%F %T '
 
+# keep all bash history but only load last 20,000 commands
 ~/.scripts/bash_history_archive.sh
 
 
