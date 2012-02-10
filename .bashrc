@@ -130,7 +130,7 @@ case $HOSTNAME in
 esac
 
 # Set my prompt variable
-export PS1="-(${txtgrn}\u${txtrst}@${hcolor}\h${txtrst})\
+export PS1="-(${txtgrn}\u${txtrst}@${hcolor}${HOSTNAME}${txtrst})\
 -\${SCM_BRANCH}-\${fill}-(${bldblu}\${newPWD}${txtrst})-\n\
 $ "
 
