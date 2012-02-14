@@ -1,0 +1,22 @@
+<p>I have accounts on many computer systems (around 10) which together add up to several hundred machines. And I often find myself having ssh sessions open to multiple machines doing different things simultaneously. More than once I have executed something on a wrong machine. Most of the case its not a problem, but every-now and I'll manage to reboot the wrong machine or do something else equally bad. Its really an easy mistake to make, especially when you have half a dozen shell tabs open and screen running in many of the tabs.</p>
+
+<p>I had spent some time pondering about a good solution to this problem. I already had bash configured to show the machine name as part of the prompt (IE: dotCOMmie@laptop:~$) but it was not enough, its easy to overlook the name or even the path. So one great day I got the idea to color my prompt differently on my machines using <a href='http://en.wikipedia.org/wiki/ANSI_color'>ANSI color escape codes.</a> This worked quite well, at a single glance at the prompt I had an intuitive feel for what machine I was typing on -- even without paying attention to the hostname in the prompt. But this solution was not perfect as I would have to manually pick a new color for each machine.</p>
+
+<p>For the next iteration of the colored prompt I decided to write a simple program which would take a string (Hostname) as an argument, hash it down into a small number and map it to a color. I called this little app t2cc (text to color code), you can download <a href='http://dotcommie.net/projects/t2cc'>t2cc</a> from the project page. The source doesn't need any external libraries so you can just compile it with gcc or use my pre-compiled 32bit and 64bit binaries. Consider the code public domain.</p>
+
+<p>To use <a href="http://dotcommie.net/projects/t2cc">t2cc</a> just drop it into ~/.bash and edit your ~/.bashrc to set the prompt as follows:</p>
+<blockquote><pre>PS1="\[\e[`~/.bash/t2cc $HOSTNAME`m\]\u@\h\[\e[0m\]:\[\e[`~/.bash/t2cc $HOSTNAME -2`m\]\w\[\e[0m\]\$ "</pre></blockquote>
+
+<p>And if you use the same .bashrc for both 32 and 64 bit architectures you can download <a href="http://dotcommie.net/projects/t2cc/t2cc_32">t2cc_32</a> and <a href="http://dotcommie.net/projects/t2cc/t2cc_64">t2cc_64</a> to your ~/.bash and the following into your ~/.bashrc:</p>
+<blockquote><pre>if [ `uname -m` =  "x86_64" ]; then
+	t2cc=~/.bash/t2cc_64
+else
+	t2cc=~/.bash/t2cc_32
+fi
+PS1="\[\e[`$t2cc $HOSTNAME`m\]\u@\h\[\e[0m\]:\[\e[`$t2cc $HOSTNAME -2`m\]\w\[\e[0m\]\$ "</pre></blockquote>
+
+<p>As you can see from the examples above I actually use 2 hashes of the hostname a forward hash for the hostname and a backward hash for the path (-2 flag). This enables more possible color combinations. T2cc is designed to ignore colors which don't match dark backgrounds (or with -b bright backgrounds), this ensures that the prompt is always readable.</p>
+
+<p>Initially I wanted to write this all in bash but I couldn't quite figure out how to convert ASCII character to numbers. If you know how to do this in pure bash please let me know.</p>
+
+<p>So you might be wondering what does all of this look like?<br> <span style="BACKGROUND-COLOR:BLACK;COLOR:#b26718;">&nbsp;dotCOMmie@laptop:</span><span style="BACKGROUND-COLOR:BLACK;COLOR:#afafaf;">~/.bash</span><span style="BACKGROUND-COLOR:BLACK;COLOR:WHITE;">$&nbsp;</span></p>
