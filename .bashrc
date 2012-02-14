@@ -129,19 +129,15 @@ case $HOSTNAME in
     hcolor=${txtpur} ;;
 esac
 
-# Set my prompt variable
-export PS1="\[\e]0;\u@\h: \w\a\]-(${txtgrn}\u${txtrst}@${hcolor}${HOSTNAME}${txtrst})\
--\${SCM_BRANCH}-\${fill}-(${bldblu}\${newPWD}${txtrst})-\n\
-$ "
-
 function path
 {
     local IFS=: ;
     printf "%s\n" $PATH;
 }
 
-
+t2cc_path=~/.scripts/t2cc/
 if [ "$(uname -s)" = 'Darwin' ]; then
+  t2cc=$t2cc_path/t2cc_osx
   # macport paths
   PATH=/opt/local/bin:/opt/local/sbin:$PATH
   # Development paths
@@ -151,6 +147,17 @@ if [ "$(uname -s)" = 'Darwin' ]; then
 elif [ "$OSTYPE" = 'cygwin' ]; then
   PATH="$PATH:/cygdrive/c/tools/android-sdk-windows/platform-tools"
 elif [ "$OSTYPE" = 'linux-gnu' ]; then
+  if [ `uname -m` =  "x86_64" ]; then
+    t2cc=$t2cc_path/t2cc_64
+  else
+    t2cc=$t2cc_path/t2cc_32
+  fi
   PATH="$PATH:/tools/android-sdk-linux/platform-tools"
 fi
+
+hcolor="\[\e[`$t2cc $HOSTNAME `m\]"
+# Set my prompt variable
+export PS1="\[\e]0;\u@\h: \w\a\]-(${txtgrn}\u${txtrst}@${hcolor}${HOSTNAME}${txtrst})\
+-\${SCM_BRANCH}-\${fill}-(${bldblu}\${newPWD}${txtrst})-\n\
+$ "
 
