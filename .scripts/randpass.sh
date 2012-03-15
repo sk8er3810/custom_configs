@@ -1,6 +1,6 @@
 #!/bin/bash
 
 #example
-# echo $(</dev/urandom tr -dc A-Za-z0-9'$*' | head -c14 )
+# cat /dev/urandom | env LC_CTYPE=C tr -cd [:print:] | head -c 10; echo
 
-echo $(</dev/urandom tr -dc $1 | head -c$2 )
+cat /dev/urandom | env LC_CTYPE=C tr -cd $1 | head -c $2; echo
