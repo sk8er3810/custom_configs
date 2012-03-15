@@ -61,6 +61,8 @@ shopt -s checkwinsize
 # Any completions you add in ~/.bash_completion are sourced last.
 if [ -z "$BASH_COMPLETION" ] && [ -f /etc/bash_completion ]; then
   source /etc/bash_completion 
+else
+  source ~/.scripts/git-completion.bash
 fi
 
 
