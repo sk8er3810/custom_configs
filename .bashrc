@@ -118,6 +118,13 @@ function prompt_command {
     let cut=3-${fillsize}
     newPWD="...${PWD:${cut}}"
   fi
+
+case "$TERM" in xterm*|rxvt*)
+    echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD}\007"
+    ;;
+*)
+    ;;
+esac
 }
 
 PROMPT_COMMAND="prompt_command"
@@ -159,7 +166,7 @@ fi
 
 hcolor="\[\e[`$t2cc $HOSTNAME `m\]"
 # Set my prompt variable
-export PS1="\[\e]0;\u@\h: \w\a\]-(${txtgrn}\u${txtrst}@${hcolor}${HOSTNAME}${txtrst})\
+export PS1="-(${txtgrn}\u${txtrst}@${hcolor}${HOSTNAME}${txtrst})\
 -\${SCM_BRANCH}-\${fill}-(${bldblu}\${newPWD}${txtrst})-\n\
 $ "
 
