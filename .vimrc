@@ -4,7 +4,7 @@ set shiftwidth=4
 set expandtab
 set history=500
 syntax on
-set number
+"set number
 set ruler
 "set textwidth=72
 set nocp
