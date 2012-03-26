@@ -24,14 +24,16 @@ alias grep='grep --color=auto'
 # \rm will call the real rm not the alias.
 
 # Interactive operation...
-# alias rm='rm -i'
+alias rm='rm -i'
 alias cp='cp -i'
 # alias mv='mv -i'
 
 # Default to human readable figures
 alias df='df -h'
-alias du='du -h'
+alias dh='du -h'
+
 alias ds='du -s'
+alias dsh='du -sh'
 
 # Misc :)
 # alias less='less -r'                          # raw control characters

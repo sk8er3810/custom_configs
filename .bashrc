@@ -61,6 +61,8 @@ shopt -s checkwinsize
 # Any completions you add in ~/.bash_completion are sourced last.
 if [ -z "$BASH_COMPLETION" ] && [ -f /etc/bash_completion ]; then
   source /etc/bash_completion 
+else
+  source ~/.scripts/git-completion.bash
 fi
 
 
@@ -83,6 +85,7 @@ unset HISTFILESIZE
 #export HISTFILESIZE=4096
 export HISTTIMEFORMAT='%F %T '
 
+# keep all bash history but only load last 20,000 commands
 ~/.scripts/bash_history_archive.sh
 
 
@@ -115,6 +118,13 @@ function prompt_command {
     let cut=3-${fillsize}
     newPWD="...${PWD:${cut}}"
   fi
+
+case "$TERM" in xterm*|rxvt*)
+    echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD}\007"
+    ;;
+*)
+    ;;
+esac
 }
 
 PROMPT_COMMAND="prompt_command"
@@ -128,19 +138,15 @@ case $HOSTNAME in
     hcolor=${txtpur} ;;
 esac
 
-# Set my prompt variable
-export PS1="-(${txtgrn}\u${txtrst}@${hcolor}\h${txtrst})\
--\${SCM_BRANCH}-\${fill}-(${bldblu}\${newPWD}${txtrst})-\n\
-$ "
-
 function path
 {
     local IFS=: ;
     printf "%s\n" $PATH;
 }
 
-
+t2cc_path=~/.scripts/t2cc/
 if [ "$(uname -s)" = 'Darwin' ]; then
+  t2cc=$t2cc_path/t2cc_osx
   # macport paths
   PATH=/opt/local/bin:/opt/local/sbin:$PATH
   # Development paths
@@ -150,6 +156,17 @@ if [ "$(uname -s)" = 'Darwin' ]; then
 elif [ "$OSTYPE" = 'cygwin' ]; then
   PATH="$PATH:/cygdrive/c/tools/android-sdk-windows/platform-tools"
 elif [ "$OSTYPE" = 'linux-gnu' ]; then
+  if [ `uname -m` =  "x86_64" ]; then
+    t2cc=$t2cc_path/t2cc_64
+  else
+    t2cc=$t2cc_path/t2cc_32
+  fi
   PATH="$PATH:/tools/android-sdk-linux/platform-tools"
 fi
+
+hcolor="\[\e[`$t2cc $HOSTNAME `m\]"
+# Set my prompt variable
+export PS1="-(${txtgrn}\u${txtrst}@${hcolor}${HOSTNAME}${txtrst})\
+-\${SCM_BRANCH}-\${fill}-(${bldblu}\${newPWD}${txtrst})-\n\
+$ "
 
