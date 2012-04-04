@@ -14,6 +14,8 @@
 # #####################
 
 export EDITOR=vim
+# allow console vim to have color
+export TERM=xterm-256color
 
 # TMP and TEMP are defined in the Windows environment.  Leaving
 # them set to the default Windows temporary directory can have
@@ -170,3 +172,4 @@ export PS1="-(${txtgrn}\u${txtrst}@${hcolor}${HOSTNAME}${txtrst})\
 -\${SCM_BRANCH}-\${fill}-(${bldblu}\${newPWD}${txtrst})-\n\
 $ "
 
+export JAVA_HOME=/usr/lib/jvm/java-6-sun/
