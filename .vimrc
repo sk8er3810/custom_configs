@@ -1,7 +1,21 @@
-let g:zenburn_high_Contrast = 1
-let g:zenburn_old_Visual = 1
-let g:zenburn_alternate_Visual = 1
-colorscheme zenburn
+fun! TimMode(size)
+    colorscheme default
+    execute ':set guifont=Nimbus\ Mono\ L\ ' . a:size
+endfun
+
+fun! MikeMode()
+    let g:zenburn_high_Contrast = 1
+    let g:zenburn_old_Visual = 1
+    let g:zenburn_alternate_Visual = 1
+    colorscheme zenburn
+    set guifont=Monospace\ 10
+endfun
+
+command! -nargs=0 Mdmode :call MikeMode()
+command! -nargs=1 TSmode :call TimMode(<f-args>)
+
+Mdmode
+
 set smartindent
 set tabstop=4
 set shiftwidth=4
@@ -27,3 +41,4 @@ set bs=2
 "vnoremap <C-H> :<C-U>Hexmode<CR>
 vmap <leader>cc :s/^/#/<cr>
 vmap <leader>co :s/^#//<cr>
+
