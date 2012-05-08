@@ -5,3 +5,7 @@
 **/.dropbox
 **/Dropbox
 
+**/.local/share/Trash
+
+**/.cache
+**/dms-sandboxes
