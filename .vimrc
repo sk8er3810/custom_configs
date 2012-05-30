@@ -42,3 +42,14 @@ set bs=2
 vmap <leader>cc :s/^/#/<cr>
 vmap <leader>co :s/^#//<cr>
 
+set showtabline=2               " File tabs allways visible
+:nmap <C-S-tab> :tabprevious<cr>
+:nmap <C-tab> :tabnext<cr>
+:nmap <C-t> :tabnew<cr>
+:map <C-t> :tabnew<cr>
+:map <C-S-tab> :tabprevious<cr>
+:map <C-tab> :tabnext<cr>
+:map <C-w> :tabclose<cr>
+:imap <C-S-tab> <ESC>:tabprevious<cr>i
+:imap <C-tab> <ESC>:tabnext<cr>i
+:imap <C-t> <ESC>:tabnew<cr>

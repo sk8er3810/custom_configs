@@ -13,6 +13,8 @@
     ui = auto
 [gui]
     encoding = utf-8
+[status]
+    showUntrackedFiles = no
 [alias]
     gr = grep
     st = status

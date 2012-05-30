@@ -8,4 +8,5 @@
 **/.local/share/Trash
 
 **/.cache
+**/.config/google-chrome
 **/dms-sandboxes

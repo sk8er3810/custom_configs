@@ -173,3 +173,4 @@ export PS1="-(${txtgrn}\u${txtrst}@${hcolor}${HOSTNAME}${txtrst})\
 $ "
 
 export JAVA_HOME=/usr/lib/jvm/java-6-sun/
+export NODE_PATH=/usr/local/lib:/usr/local/lib/node_modules
