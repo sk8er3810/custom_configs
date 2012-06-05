@@ -14,8 +14,32 @@
 # #####################
 
 export EDITOR=vim
-# allow console vim to have color
-export TERM=xterm-256color
+
+# uncomment for a colored prompt, if the terminal has the capability; turned
+# off by default to not distract the user: the focus in a terminal window
+# should be on the output of commands, not on the prompt
+force_color_prompt=yes
+if [ -n "$force_color_prompt" ]; then
+    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+	# We have color support; assume it's compliant with Ecma-48
+	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+	# a case would tend to support setf rather than setaf.)
+	color_prompt=yes
+
+    case "$TERM" in
+    xterm*|rxvt*) 
+    # vim-nox needs the $TERM env variable to be xterm-256color
+    # in order to correctly perform syntax highlighting
+        export TERM=xterm-256color
+        ;;
+    *)
+        ;;
+    esac
+    else
+	color_prompt=
+    fi
+fi
+
 
 # TMP and TEMP are defined in the Windows environment.  Leaving
 # them set to the default Windows temporary directory can have
@@ -122,7 +146,7 @@ function prompt_command {
   fi
 
 case "$TERM" in xterm*|rxvt*)
-    echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD}\007"
+    echo -ne "\033]0;${USER}@${HOSTNAME}: ${newPWD}\007"
     ;;
 *)
     ;;
