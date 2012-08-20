@@ -16,6 +16,7 @@ command! -nargs=1 TSmode :call TimMode(<f-args>)
 
 Mdmode
 
+filetype indent on
 set smartindent
 set tabstop=4
 set shiftwidth=4
@@ -42,7 +43,7 @@ set bs=2
 vmap <leader>cc :s/^/#/<cr>
 vmap <leader>co :s/^#//<cr>
 
-set showtabline=2               " File tabs allways visible
+set showtabline=2               " File tabs always visible
 :nmap <C-S-tab> :tabprevious<cr>
 :nmap <C-tab> :tabnext<cr>
 :nmap <C-t> :tabnew<cr>
@@ -53,3 +54,18 @@ set showtabline=2               " File tabs allways visible
 :imap <C-S-tab> <ESC>:tabprevious<cr>i
 :imap <C-tab> <ESC>:tabnext<cr>i
 :imap <C-t> <ESC>:tabnew<cr>
+
+" for CSS, also have things in braces indented:
+autocmd FileType css set smartindent
+" for HTML, generally format text, but if a long line has been created
+" leave it alone when editing:
+autocmd FileType html set formatoptions+=tl
+" for both CSS and HTML, use genuine tab characters for 
+" indentation, to make files a few bytes smaller:
+autocmd FileType html,css set noexpandtab tabstop=2
+
+" F7 to toggle spell-checking
+map <silent> <F7> :set nospell!<CR>:set nospell?<CR>
+
+setlocal makeprg=tidy\ -quiet\ -errors\ %
+setlocal errorformat=line\ %l\ column\ %v\ -\ %m
