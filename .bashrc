@@ -118,18 +118,21 @@ export HISTTIMEFORMAT='%F %T '
 # Shortcut for terminal colors for PS1
 [ -f ~/.bash_colors ] && source ~/.bash_colors
 
+LDELIM="["
+RDELIM="]"
 function prompt_command {
   # Whenever displaying the prompt, write the previous line to disk
   history -a
 
   # save the current git branch if within a git repo
-  SCM_BRANCH=$(__git_ps1 "(git:%s)" 2> /dev/null)
+  SCM_BRANCH=$(__git_ps1 "git:%s" 2> /dev/null)
 
   # Find the width of the prompt:
   TERMWIDTH=${COLUMNS}
 
   # Add all the accessories below ...
-  local tempPS1="-(${USER}@${HOSTNAME})-${SCM_BRANCH}-(${PWD})-"
+  #local tempPS1="-(${USER}@${HOSTNAME})-${SCM_BRANCH}-(${PWD})-"
+  local tempPS1="-${LDELIM}${USER}@${HOSTNAME}${RDELIM}-${LDELIM}${PWD}${RDELIM}-${LDELIM}${SCM_BRANCH}${RDELIM}-"
   fill=""
   # how much more do we need to fill
   let fillsize=${TERMWIDTH}-${#tempPS1}-2
@@ -192,8 +195,8 @@ fi
 
 hcolor="\[\e[`$t2cc $HOSTNAME `m\]"
 # Set my prompt variable
-export PS1="-(${txtgrn}\u${txtrst}@${hcolor}${HOSTNAME}${txtrst})\
--\${SCM_BRANCH}-\${fill}-(${bldblu}\${newPWD}${txtrst})-\n\
+export PS1="-${LDELIM}${txtgrn}\u${txtrst}@${hcolor}${HOSTNAME}${txtrst}${RDELIM}\
+-${LDELIM}${bldblu}\${newPWD}${txtrst}${RDELIM}\${fill}-${LDELIM}\${SCM_BRANCH}${RDELIM}-\n\
 $ "
 
 export JAVA_HOME=/usr/lib/jvm/java-6-sun/
