@@ -17,6 +17,7 @@ command! -nargs=1 TSmode :call TimMode(<f-args>)
 Mdmode
 
 filetype indent on
+filetype plugin on
 set smartindent
 set tabstop=4
 set shiftwidth=4
