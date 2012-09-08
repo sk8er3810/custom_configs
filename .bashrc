@@ -1,4 +1,4 @@
-# .bashrc file
+
 #echo "Running .bashrc"
 
 # If not running interactively, don't do anything
@@ -184,7 +184,8 @@ if [ "$(uname -s)" = 'Darwin' ]; then
 #  PATH=$PATH:/Volumes/CyanogenMod/bin
   PATH=$PATH:/Developer/usr/bin
 elif [ "$OSTYPE" = 'cygwin' ]; then
-  PATH="$PATH:/cygdrive/c/tools/android-sdk-windows/platform-tools"
+  PATH="$PATH:/cygdrive/c/Software/android-sdk-windows/platform-tools"
+  t2cc=$t2cc_path/t2cc_win64.exe
 elif [ "$OSTYPE" = 'linux-gnu' ]; then
   if [ `uname -m` =  "x86_64" ]; then
     t2cc=$t2cc_path/t2cc_64
