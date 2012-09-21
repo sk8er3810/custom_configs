@@ -205,3 +205,4 @@ $ "
 
 export JAVA_HOME=/usr/lib/jvm/java-6-sun/
 export NODE_PATH=/usr/local/lib:/usr/local/lib/node_modules
+source ~/.scripts/ps4.sh
