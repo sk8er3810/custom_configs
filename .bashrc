@@ -138,10 +138,7 @@ function prompt_command {
   # how much more do we need to fill
   let fillsize=${TERMWIDTH}-${#tempPS1}-2
   if [ "$fillsize" -gt "0" ]; then
-    while [ $fillsize -gt "0" ]; do
-      fill="${fill}-"
-      let fillsize=${fillsize}-1
-    done
+    eval printf -v fill '%.0s-' {1..$fillsize}
     newPWD="${PWD}"
   elif [ "$fillsize" -le "0" ]; then
     fill=""

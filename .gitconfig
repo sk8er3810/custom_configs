@@ -18,6 +18,8 @@
 [alias]
     gr = grep
     st = status
+    st-n = status -uno
+    st-all = status -uall
     ci = commit
     br = branch
     df = diff

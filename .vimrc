@@ -51,7 +51,7 @@ set showtabline=2               " File tabs always visible
 :map <C-t> :tabnew<cr>
 :map <C-S-tab> :tabprevious<cr>
 :map <C-tab> :tabnext<cr>
-:map <C-w> :tabclose<cr>
+":map <C-w> :tabclose<cr>
 :imap <C-S-tab> <ESC>:tabprevious<cr>i
 :imap <C-tab> <ESC>:tabnext<cr>i
 :imap <C-t> <ESC>:tabnew<cr>
@@ -70,3 +70,12 @@ map <silent> <F7> :set nospell!<CR>:set nospell?<CR>
 
 setlocal makeprg=tidy\ -quiet\ -errors\ %
 setlocal errorformat=line\ %l\ column\ %v\ -\ %m
+
+"folding settings
+set foldmethod=indent   "fold based on indent
+set foldnestmax=10      "deepest fold is 10 levels
+set nofoldenable        "dont fold by default
+set foldlevel=1         "this is just what i use
+set hidden              "allow switching of buffers without saving
+set confirm             "always ask to save a modified buffer
+nnoremap <F5> :buffers<CR>:buffer<Space>
