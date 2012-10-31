@@ -93,3 +93,6 @@ Refactor
 bin
 gen
 local.properties
+
+# netbeans
+nbactions*.xml

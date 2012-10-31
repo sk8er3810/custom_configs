@@ -56,6 +56,9 @@ set showtabline=2               " File tabs always visible
 :imap <C-tab> <ESC>:tabnext<cr>i
 :imap <C-t> <ESC>:tabnew<cr>
 
+nmap <C-V> "+gP
+imap <C-V> <ESC><C-V>i
+vmap <C-C> "+y
 " for CSS, also have things in braces indented:
 autocmd FileType css set smartindent
 " for HTML, generally format text, but if a long line has been created
@@ -78,4 +81,4 @@ set nofoldenable        "dont fold by default
 set foldlevel=1         "this is just what i use
 set hidden              "allow switching of buffers without saving
 set confirm             "always ask to save a modified buffer
-nnoremap <F5> :buffers<CR>:buffer<Space>
+nnoremap <F5> :buffers<CR>:b

@@ -11,10 +11,14 @@
     excludesfile = ~/.gitexclude
 [color]
     ui = auto
+[gc]
+    auto = 500
 [gui]
     encoding = utf-8
 [status]
 #    showUntrackedFiles = no
+[merge]
+    conflictstyle = diff3
 [alias]
     gr = grep
     st = status

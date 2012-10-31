@@ -5,6 +5,7 @@
 **/.dropbox
 **/Dropbox
 
+**/.m2
 **/.local/share/Trash
 
 **/.cache
