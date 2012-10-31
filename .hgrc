@@ -1,0 +1,13 @@
+[ui]
+username = Michael Deschu <mdeschu@hammers.com>
+[pager]
+pager = LESS='FRSX' less
+[extensions]
+hgext.convert=
+hgext.gpg=
+hgext.mq=
+hgext.pager=
+hgext.rebase=
+hgext.record=
+#hgsubversion=/opt/hgsubversion
+hgsubversion=
