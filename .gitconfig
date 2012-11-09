@@ -18,7 +18,7 @@
 [status]
 #    showUntrackedFiles = no
 [merge]
-    conflictstyle = diff3
+#    conflictstyle = diff3
 [alias]
     gr = grep
     st = status
