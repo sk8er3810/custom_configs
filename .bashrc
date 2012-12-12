@@ -171,17 +171,28 @@ function path
     printf "%s\n" $PATH;
 }
 
+function pathmunge () {
+if ! echo $PATH | egrep -q "(^|:)$1($|:)" ; then
+    if [ "$2" = "after" ] ; then
+        PATH=$PATH:$1
+    else
+        PATH=$1:$PATH
+    fi
+fi
+}
+
 t2cc_path=~/.scripts/t2cc/
 if [ "$(uname -s)" = 'Darwin' ]; then
   t2cc=$t2cc_path/t2cc_osx
   # macport paths
-  PATH=/opt/local/bin:/opt/local/sbin:$PATH
+  pathmunge /opt/local/bin
+  pathmunge /opt/local/sbin
   # Development paths
-  PATH=$PATH:/Developer/SDKs/android.sdk/platform-tools
+  pathmunge /Developer/SDKs/android.sdk/platform-tools
 #  PATH=$PATH:/Volumes/CyanogenMod/bin
-  PATH=$PATH:/Developer/usr/bin
+  pathmunge /Developer/usr/bin
 elif [ "$OSTYPE" = 'cygwin' ]; then
-  PATH="$PATH:/cygdrive/c/Software/android-sdk-windows/platform-tools"
+  pathmunge /cygdrive/c/Software/android-sdk-windows/platform-tools
   t2cc=$t2cc_path/t2cc_win64.exe
 elif [ "$OSTYPE" = 'linux-gnu' ]; then
   if [ `uname -m` =  "x86_64" ]; then
@@ -189,7 +200,7 @@ elif [ "$OSTYPE" = 'linux-gnu' ]; then
   else
     t2cc=$t2cc_path/t2cc_32
   fi
-  PATH="$PATH:/tools/android-sdk-linux/platform-tools"
+  pathmunge /tools/android-sdk-linux/platform-tools
 fi
 
 hcolor="\[\e[`$t2cc $HOSTNAME `m\]"
