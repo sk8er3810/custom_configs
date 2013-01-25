@@ -3,5 +3,5 @@
 # Always color, even if piping to a another program
 --color
 # Use "less" as my pager
-# --no-init
---pager=less --quit-if-one-screen --RAW-CONTROL-CHARS --chop-long-lines --tabs=5,9
+# --no-init --quit-if-one-screen 
+--pager=less --RAW-CONTROL-CHARS --chop-long-lines --no-init --quit-if-one-screen --tabs=5,9
