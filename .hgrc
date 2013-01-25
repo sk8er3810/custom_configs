@@ -1,5 +1,6 @@
 [ui]
 username = Michael Deschu <mdeschu@hammers.com>
+ignore = ~/.hgignore
 [pager]
 pager = LESS='FRSX' less
 [extensions]

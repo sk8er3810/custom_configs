@@ -8,6 +8,8 @@ syntax: glob
 *~
 *.d
 *.swp
+#ctags
+tags
 
 #Subfolders
 

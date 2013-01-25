@@ -220,3 +220,4 @@ if [ -f "$HOME/.bashrc_work" ]; then
     . "$HOME/.bashrc_work"
 fi
 
+REPOS=~/repos

@@ -52,3 +52,10 @@ set foldlevel=1         "this is just what i use
 set hidden              "allow switching of buffers without saving
 set confirm             "always ask to save a modified buffer
 nnoremap <F5> :buffers<CR>:b
+
+" ctag settings
+let Tlist_Ctags_Cmd = "/usr/bin/ctags"
+let Tlist_WinWidth = 50
+map <F4> :TlistToggle<cr>
+map <F8> :!/usr/bin/ctags -R --c++-kinds=+lp --fields=+iaS --extra=+q .<CR>
+
