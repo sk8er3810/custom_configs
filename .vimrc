@@ -4,6 +4,8 @@ filetype plugin on
 set smartindent
 set tabstop=4
 set shiftwidth=4
+" highlight current line of cursor
+set cursorline
 
 "" use spaces instead of tabs
 set expandtab
@@ -59,3 +61,4 @@ let Tlist_WinWidth = 50
 map <F4> :TlistToggle<cr>
 map <F8> :!/usr/bin/ctags -R --c++-kinds=+lp --fields=+iaS --extra=+q .<CR>
 
+":au BufWritePost * make
