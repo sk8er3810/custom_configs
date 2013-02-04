@@ -29,7 +29,7 @@ EXCLUDE_REGEX="--exclude-regexp ${BUILD_DIRS} --exclude-regexp ${BUILD_FILES} --
 SOURCE_DIR=${HOME}
 DESTINATION_DIR="/mnt/backup/`whoami`/"
 DAYS_TO_KEEP='28D'
-#backup ${SOURCE_DIR} ${DESTINATION_DIR} ${DAYS_TO_KEEP}
+backup ${SOURCE_DIR} ${DESTINATION_DIR} ${DAYS_TO_KEEP}
 
 #Backup home directory
 SOURCE_DIR=${HOME}/repos

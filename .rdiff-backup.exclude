@@ -1,19 +1,19 @@
-# OSX
 **/.fseventsd
 **/.Spotlight-V100
 **/.Trash
 **/.Trashes
-# Dropbox (All)
+
+
+**/.m2
+**/.local/share/Trash
+
+
 **/.dropbox
 **/Dropbox
 
-# maven install cache
-**/.m2
-# gnome trash
-**/.local/share/Trash
 
-# google chrome cache
 **/.cache
 **/.config/google-chrome
-# my work directory ( backed up separately )
+
+
 **/repos
