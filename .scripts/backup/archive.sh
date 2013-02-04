@@ -37,9 +37,9 @@ function archive_backup
 
 TAR=`which tar`
 MD5=`which md5sum`
-RDIFFBDIR=/backup/
+RDIFFBDIR=/mnt/backup/
 FILENAME=`whoami`-`hostname`-backup-archive
-GDRIVE='/mnt/hgfs/G Drive'
+GDRIVE='/mnt/hgfs/G_Drive'
 DEST="$GDRIVE"
 TAROUTPUT=$GDRIVE/$FILENAME.tar.gz
 MD5OUTPUT=$TAROUTPUT.md5
