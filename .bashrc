@@ -126,6 +126,9 @@ function prompt_command {
 
   # save the current git branch if within a git repo
   SCM_BRANCH=$(__git_ps1 "git:%s" 2> /dev/null)
+  if [ -z $SCM_BRANCH ]; then # maybe we are in a hg repo
+      SCM_BRANCH=`hg prompt "{[+{incoming|count}]-->}{root|basename}{/{branch}}:{rev}{-->[+{outgoing|count}]}{ at {bookmark}}{status}" 2> /dev/null`
+  fi
   TIME=$(date +%R)
 
   # Find the width of the prompt:

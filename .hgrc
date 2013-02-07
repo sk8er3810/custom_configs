@@ -11,6 +11,8 @@ hgext.pager=
 hgext.rebase=
 hgext.record=
 #hgsubversion=/opt/hgsubversion
+hgshelve=/opt/hgext/hgshelve/hgshelve.py
+prompt=/opt/hgext/hg-prompt/prompt.py
 hgsubversion=
 color=
 
