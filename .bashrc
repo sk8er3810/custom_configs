@@ -63,6 +63,9 @@ if [ -z "$BASH_COMPLETION" ] && [ -f /etc/bash_completion ]; then
   source /etc/bash_completion 
 fi
 
+if [ -f /opt/local/etc/profile.d/bash_completion.sh ]; then
+    . /opt/local/etc/profile.d/bash_completion.sh
+fi
 
 # History Options
 # ###############

@@ -21,3 +21,10 @@ fi
 if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
+
+if [ -d "/opt/local/bin" ]; then
+    # MacPorts Installer addition on 2013-02-01_at_12:49:27: adding an appropriate PATH variable for use with MacPorts.
+    export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+    # Finished adapting your PATH environment variable for use with MacPorts.
+fi
+
