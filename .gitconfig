@@ -6,16 +6,24 @@
     signingkey = 48660B09
 [core]
     editor       = vim
-    pager        = less -FRSX
+    pager        = less -FRSX -x5,9
     autocrlf     = false
     excludesfile = ~/.gitexclude
 [color]
     ui = auto
+[gc]
+    auto = 500
 [gui]
     encoding = utf-8
+[status]
+#    showUntrackedFiles = no
+[merge]
+#    conflictstyle = diff3
 [alias]
     gr = grep
     st = status
+    st-n = status -uno
+    st-all = status -uall
     ci = commit
     br = branch
     df = diff
@@ -37,3 +45,5 @@
     # of the entire file
     funcdiff = !sh -c \"git show \"\\$1:\\$3\" | sed -n \"/^[^ \\t].*\\$4(/,/^}/p\" > .tmp1 && git show \"\\$2:\\$3\" | sed -n \"/^[^ \\t].*\\$4(/,/^}/p\" > .tmp2 && git diff --no-index .tmp1 .tmp2\"
 
+    relroot = rev-parse --show-cdup
+    absroot = rev-parse --show-toplevel

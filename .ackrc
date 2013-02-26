@@ -1,0 +1,7 @@
+# Always sort the files
+--sort-files
+# Always color, even if piping to a another program
+--color
+# Use "less" as my pager
+# --no-init --quit-if-one-screen 
+--pager=less --RAW-CONTROL-CHARS --chop-long-lines --no-init --quit-if-one-screen --tabs=5,9

@@ -1,0 +1,2 @@
+time tar czpf /mnt/hgfs/G_Drive/debian6dms-backup.in-progress.tgz --exclude=/error.log --exclude=/proc/* --exclude=/media/* --exclude=/dev/* --exclude=/mnt/* --exclude=/sys/* --exclude=/tmp/* --exclude=/home/mdeschu/repos/* --verify / 2>/error.log && mv /mnt/hgfs/G_Drive/debian6dms-backup{.in-progress,}.tgz
+

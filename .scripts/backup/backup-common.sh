@@ -7,7 +7,7 @@ DESTINATION_DIR=$2
 if [ -w $DESTINATION_DIR ]; then
 
    echo "Performing ${TYPE} rdiff-backup of ${SOURCE_DIR}"
-   ${BACKUP_PROG} --no-compression --exclude-symbolic-links ${EXCLUDE_REGEX} --exclude-globbing-filelist ~/.scripts/backup/exclude.txt ${SOURCE_DIR} ${DESTINATION_DIR}
+   ${BACKUP_PROG} --no-compression --exclude-symbolic-links ${EXCLUDE_REGEX} --exclude-globbing-filelist ~/.rdiff-backup.exclude ${SOURCE_DIR} ${DESTINATION_DIR}
    echo -e "Finished rdiff-backup of ${SOURCE_DIR}\n"
 
    echo "Removing backups older than ${NUM_DAYS}"
@@ -29,12 +29,12 @@ NUM_DAYS=${1}
 TYPE=${2}
 
 #Backup local git repository
-SOURCE_DIR="/cygdrive/c/src"
-DESTINATION_DIR="/cygdrive/t/backup/src/${TYPE}"
-backup ${SOURCE_DIR} ${DESTINATION_DIR} ${NUM_DAYS}
+#SOURCE_DIR="/cygdrive/c/src"
+#DESTINATION_DIR="/cygdrive/t/backup/src/${TYPE}"
+#backup ${SOURCE_DIR} ${DESTINATION_DIR} ${NUM_DAYS}
 
 #Backup home directory
-SOURCE_DIR=~
-DESTINATION_DIR="/cygdrive/t/backup/mike/${TYPE}"
+SOURCE_DIR=${HOME}
+DESTINATION_DIR="/backup/`whoami`/${TYPE}"
 backup ${SOURCE_DIR} ${DESTINATION_DIR} ${NUM_DAYS}
 

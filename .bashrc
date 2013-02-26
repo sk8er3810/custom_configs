@@ -1,4 +1,4 @@
-# .bashrc file
+
 #echo "Running .bashrc"
 
 # If not running interactively, don't do anything
@@ -14,6 +14,32 @@
 # #####################
 
 export EDITOR=vim
+
+# uncomment for a colored prompt, if the terminal has the capability; turned
+# off by default to not distract the user: the focus in a terminal window
+# should be on the output of commands, not on the prompt
+force_color_prompt=yes
+if [ -n "$force_color_prompt" ]; then
+    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+	# We have color support; assume it's compliant with Ecma-48
+	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+	# a case would tend to support setf rather than setaf.)
+	color_prompt=yes
+
+    case "$TERM" in
+    xterm*|rxvt*) 
+    # vim-nox needs the $TERM env variable to be xterm-256color
+    # in order to correctly perform syntax highlighting
+        export TERM=xterm-256color
+        ;;
+    *)
+        ;;
+    esac
+    else
+	color_prompt=
+    fi
+fi
+
 
 # TMP and TEMP are defined in the Windows environment.  Leaving
 # them set to the default Windows temporary directory can have
@@ -61,6 +87,8 @@ shopt -s checkwinsize
 # Any completions you add in ~/.bash_completion are sourced last.
 if [ -z "$BASH_COMPLETION" ] && [ -f /etc/bash_completion ]; then
   source /etc/bash_completion 
+else
+  source ~/.scripts/git-completion.bash
 fi
 
 if [ -f /opt/local/etc/profile.d/bash_completion.sh ]; then
@@ -93,32 +121,43 @@ export HISTTIMEFORMAT='%F %T '
 # Shortcut for terminal colors for PS1
 [ -f ~/.bash_colors ] && source ~/.bash_colors
 
+LDELIM="["
+RDELIM="]"
 function prompt_command {
   # Whenever displaying the prompt, write the previous line to disk
   history -a
 
   # save the current git branch if within a git repo
-  SCM_BRANCH=$(__git_ps1 "(git:%s)" 2> /dev/null)
+  SCM_BRANCH=$(__git_ps1 "git:%s" 2> /dev/null)
+  if [ -z $SCM_BRANCH ]; then # maybe we are in a hg repo
+      SCM_BRANCH=`hg prompt "{[+{incoming|count}]-->}{root|basename}{/{branch}}:{rev}{-->[+{outgoing|count}]}{ at {bookmark}}{status}" 2> /dev/null`
+  fi
+  TIME=$(date +%R)
 
   # Find the width of the prompt:
   TERMWIDTH=${COLUMNS}
 
   # Add all the accessories below ...
-  local tempPS1="-(${USER}@${HOSTNAME})-${SCM_BRANCH}-(${PWD})-"
+  #local tempPS1="-(${USER}@${HOSTNAME})-${SCM_BRANCH}-(${PWD})-"
+  local tempPS1="-${LDELIM}${USER}@${HOSTNAME}${RDELIM}-${LDELIM}${PWD}${RDELIM}-${LDELIM}${SCM_BRANCH}${RDELIM}-${TIME}"
   fill=""
   # how much more do we need to fill
   let fillsize=${TERMWIDTH}-${#tempPS1}-2
   if [ "$fillsize" -gt "0" ]; then
-    while [ $fillsize -gt "0" ]; do
-      fill="${fill}-"
-      let fillsize=${fillsize}-1
-    done
+    eval printf -v fill '%.0s-' {1..$fillsize}
     newPWD="${PWD}"
   elif [ "$fillsize" -le "0" ]; then
     fill=""
     let cut=3-${fillsize}
     newPWD="...${PWD:${cut}}"
   fi
+
+case "$TERM" in xterm*|rxvt*)
+    echo -ne "\033]0;${USER}@${HOSTNAME}: ${newPWD}\007"
+    ;;
+*)
+    ;;
+esac
 }
 
 PROMPT_COMMAND="prompt_command"
@@ -132,28 +171,59 @@ case $HOSTNAME in
     hcolor=${txtpur} ;;
 esac
 
-# Set my prompt variable
-export PS1="-(${txtgrn}\u${txtrst}@${hcolor}${HOSTNAME}${txtrst})\
--\${SCM_BRANCH}-\${fill}-(${bldblu}\${newPWD}${txtrst})-\n\
-$ "
-
 function path
 {
     local IFS=: ;
     printf "%s\n" $PATH;
 }
 
+function pathmunge () {
+if ! echo $PATH | egrep -q "(^|:)$1($|:)" ; then
+    if [ "$2" = "after" ] ; then
+        PATH=$PATH:$1
+    else
+        PATH=$1:$PATH
+    fi
+fi
+}
 
+t2cc_path=~/.scripts/t2cc/
 if [ "$(uname -s)" = 'Darwin' ]; then
+  t2cc=$t2cc_path/t2cc_osx
   # macport paths
-  PATH=/opt/local/bin:/opt/local/sbin:$PATH
+  pathmunge /opt/local/bin
+  pathmunge /opt/local/sbin
   # Development paths
-  PATH=$PATH:/Developer/SDKs/android.sdk/platform-tools
+  pathmunge /Developer/SDKs/android.sdk/platform-tools
 #  PATH=$PATH:/Volumes/CyanogenMod/bin
-  PATH=$PATH:/Developer/usr/bin
+  pathmunge /Developer/usr/bin
 elif [ "$OSTYPE" = 'cygwin' ]; then
-  PATH="$PATH:/cygdrive/c/tools/android-sdk-windows/platform-tools"
+  pathmunge /cygdrive/c/Software/android-sdk-windows/platform-tools
+  t2cc=$t2cc_path/t2cc_win64.exe
 elif [ "$OSTYPE" = 'linux-gnu' ]; then
-  PATH="$PATH:/tools/android-sdk-linux/platform-tools"
+  if [ `uname -m` =  "x86_64" ]; then
+    t2cc=$t2cc_path/t2cc_64
+  else
+    t2cc=$t2cc_path/t2cc_32
+  fi
+  pathmunge /tools/android-sdk-linux/platform-tools
 fi
 
+hcolor="\[\e[`$t2cc $HOSTNAME `m\]"
+# Set my prompt variable
+# example output
+# -[mdeschu@debian6dms]-[git:master]-[/home/mdeschu]---------------------------------------
+export PS1="-${LDELIM}${txtgrn}\u${txtrst}@${hcolor}${HOSTNAME}${txtrst}${RDELIM}\
+-${LDELIM}\${SCM_BRANCH}${RDELIM}-${LDELIM}${bldblu}\${newPWD}${txtrst}${RDELIM}\${fill}-\${TIME}-\n\
+$ "
+
+export JAVA_HOME=/usr/lib/jvm/java-6-sun/
+export NODE_PATH=/usr/local/lib:/usr/local/lib/node_modules
+source ~/.scripts/ps4.sh
+
+# include .bashrc_work if it exists any sensitive info must go in .bashrc_work
+if [ -f "$HOME/.bashrc_work" ]; then
+    . "$HOME/.bashrc_work"
+fi
+
+REPOS=~/repos

@@ -1,12 +1,22 @@
 #!/bin/bash
 
-function copy_to_dest
+function sync_to_dest
 {
-  DEST=$1
+  echo "rsync $TAROUTPUT $MD5OUTPUT $1"
+  #rsync $TAROUTPUT $MD5OUTPUT $1
+}
+
+function archive_backup
+{
+  # Tar likes to be executed in the same directory as the archive 
+  cd $RDIFFBDIR
+
   while :
   do
-    if [ ! -w $DEST ] ; then
-      read -p "Please make sure that $DEST is writable. Press q to quit..." input
+    if [ ! -w "$DEST" ] ; then
+        echo -e "Error: Please make sure that $DEST is writable." >> ~/.logs/backup.log
+        exit
+      #read -p "Please make sure that $DEST is writable. Press q to quit..." input
     else
       break
     fi
@@ -14,33 +24,35 @@ function copy_to_dest
       return
     fi
   done
-  cp -f $TAROUTPUT $MD5OUTPUT $DEST
+
+  # Create an archive of the backups and a checksum
+  echo "$TAR czf \"$TAROUTPUT\" mdeschu"
+  cmd="$TAR czf \"$TAROUTPUT\" mdeschu"
+  eval $cmd
+
+  echo "$MD5 \"$TAROUTPUT\" > \"$MD5OUTPUT\""
+  cmd="$MD5 \"$TAROUTPUT\" > \"$MD5OUTPUT\""
+  eval $cmd
 }
 
-TAR=/usr/bin/tar
-MD5=/usr/bin/md5sum
-RDIFFBDIR=/cygdrive/t/backup/
-FILENAME=backup-archive
-TAROUTPUT=$FILENAME.tar
-MD5OUTPUT=$FILENAME.tar.md5
-SERVER=/cygdrive/y/Mike/
-FLASHDRIVE=/cygdrive/z/
+TAR=`which tar`
+MD5=`which md5sum`
+RDIFFBDIR=/mnt/backup/
+FILENAME=`whoami`-`hostname`-backup-archive
+GDRIVE='/mnt/hgfs/G_Drive'
+DEST="$GDRIVE"
+TAROUTPUT=$GDRIVE/$FILENAME.tar.gz
+MD5OUTPUT=$TAROUTPUT.md5
 
 while [ ! -e $RDIFFBDIR ] ; do
-    read -p "Please mount the partition $TARINPUT exists on and press enter.";
+    echo -e "Error: Please mount the partition $TARINPUT exists on and press enter." >> ~/.logs/backup.log;
+    exit
+    #read -p "Please mount the partition $TARINPUT exists on and press enter.";
 done
 
-# Tar likes to be executed in the same directory as the archive 
-cd $RDIFFBDIR
+archive_backup
 
-# Create an archive of the backups and a checksum
-$TAR cf $TAROUTPUT mike src/weekly src/monthly redmine
-$MD5 $TAROUTPUT > $MD5OUTPUT
-
-# Copy to server
-copy_to_dest $SERVER
-
-# Copy to flash drive
-copy_to_dest $FLASHDRIVE
+# Copy to external device
+#sync_to_dest "$GDRIVE"
 
 read -p "Press enter to close"

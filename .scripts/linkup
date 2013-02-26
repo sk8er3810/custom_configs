@@ -1,0 +1,7 @@
+#!/bin/bash
+
+for f in $(find repos/mike-git/ -maxdepth 1 | grep -v '/.git/' ); 
+do 
+    rm -rf $(basename ${f});
+    ln -s ${f};
+done

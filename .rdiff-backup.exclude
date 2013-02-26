@@ -2,6 +2,18 @@
 **/.Spotlight-V100
 **/.Trash
 **/.Trashes
+
+
+**/.m2
+**/.local/share/Trash
+
+
 **/.dropbox
 **/Dropbox
 
+
+**/.cache
+**/.config/google-chrome
+
+
+**/repos
