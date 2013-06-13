@@ -47,3 +47,7 @@
 
     relroot = rev-parse --show-cdup
     absroot = rev-parse --show-toplevel
+[pack]
+    threads = 1
+    deltaChaseSize = 128m
+	windowMemory = 256m

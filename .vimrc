@@ -62,3 +62,24 @@ map <F4> :TlistToggle<cr>
 map <F8> :!/usr/bin/ctags -R --c++-kinds=+lp --fields=+iaS --extra=+q .<CR>
 
 ":au BufWritePost * make
+
+" Convert slashes to backslashes for Windows.
+if has('win32')
+    nmap ,cs :let @*=substitute(expand("%"), "/", "\\", "g")<CR>
+    nmap ,cl :let @*=substitute(expand("%:p"), "/", "\\", "g")<CR>
+
+    " This will copy the path in 8.3 short format, for DOS and Windows 9x
+    nmap ,c8 :let @*=substitute(expand("%:p:8"), "/", "\\", "g")<CR>
+else
+    " nmap ,cs :let @*=expand("%")<CR>
+    " nmap ,cl :let @*=expand("%:p")<CR>
+
+    " Gnome Clipboard
+    nmap ,cs :let @+=expand("%")<CR>
+    nmap ,cl :let @+=expand("%:p")<CR>
+endif
+
+"fun! ack (term) {
+"    let files = system("ack-grep " + search)
+"    inputlist (files);
+"}

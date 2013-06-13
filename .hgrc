@@ -15,4 +15,4 @@ hgshelve=/opt/hgext/hgshelve/hgshelve.py
 prompt=/opt/hgext/hg-prompt/prompt.py
 hgsubversion=
 color=
-
+compass=/opt/hgext/hg-compass/compass.py

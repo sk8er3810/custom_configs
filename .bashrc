@@ -101,21 +101,24 @@ fi
 # Ignore some controlling instructions
 # HISTIGNORE is a colon-delimited list of patterns which should be excluded.
 # The '&' is a special pattern which suppresses duplicate entries.
-export HISTIGNORE=$'[ \t]*:&:[fb]g:exit:ls'
+#export HISTIGNORE=$'[ \t]*:&:[fb]g:exit:?:??:???'
+export HISTIGNORE=$'[ \t]*:&'
 
 # Don't put duplicate lines in the history.
 # ignoredups and ignorespace
-export HISTCONTROL="ignoreboth"
+export HISTCONTROL="ignoreboth:erasedups"
 
 # double the size of the command history
-HISTSIZE=20000
+# average ~ 200 unique commands per day (9000 is good for ~ 4 months)
+HISTSIZE=18000
 #export HISTSIZE=2048
 unset HISTFILESIZE
 #export HISTFILESIZE=4096
+# remember 2 lines per command (<cmd>\n<timeEpoch>)
 export HISTTIMEFORMAT='%F %T '
 
 # keep all bash history but only load last 20,000 commands
-~/.scripts/bash_history_archive.sh
+#~/.scripts/bash_history_archive.sh
 
 
 # Shortcut for terminal colors for PS1
@@ -129,9 +132,9 @@ function prompt_command {
 
   # save the current git branch if within a git repo
   SCM_BRANCH=$(__git_ps1 "git:%s" 2> /dev/null)
-  if [ -z $SCM_BRANCH ]; then # maybe we are in a hg repo
-      SCM_BRANCH=`hg prompt "{[+{incoming|count}]-->}{root|basename}{/{branch}}:{rev}{-->[+{outgoing|count}]}{ at {bookmark}}{status}" 2> /dev/null`
-  fi
+  #if [ -z $SCM_BRANCH ]; then # maybe we are in a hg repo
+      #SCM_BRANCH=`hg prompt "{[+{incoming|count}]-->}{root|basename}{/{branch}}:{rev}{-->[+{outgoing|count}]}{ at {bookmark}}{status}" 2> /dev/null`
+  #fi
   TIME=$(date +%R)
 
   # Find the width of the prompt:
