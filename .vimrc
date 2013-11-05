@@ -5,7 +5,7 @@ set smartindent
 set tabstop=4
 set shiftwidth=4
 " highlight current line of cursor
-set cursorline
+"set cursorline
 
 "" use spaces instead of tabs
 set expandtab

@@ -37,6 +37,6 @@ endfun
 command! -nargs=0 Mdmode :call MikeMode()
 command! -nargs=1 TSmode :call TimMode(<f-args>)
 
-Mdmode
+"Mdmode
 
 
