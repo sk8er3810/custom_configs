@@ -45,3 +45,5 @@ alias dsh='du -sh'
 alias ll='ls -l'                              # long list
 alias la='ls -A'                              # all but . and ..
 alias l='ls -CF'                              #
+
+alias backup_vms='time rsync -arvv Documents/Virtual\ Machines.localized/ /Volumes/G\ Drive/VM\ Backups/'

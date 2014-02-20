@@ -192,12 +192,14 @@ fi
 
 t2cc_path=~/.scripts/t2cc/
 if [ "$(uname -s)" = 'Darwin' ]; then
+  export ANDROID_HOME=$HOME/Downloads/adt-bundle-mac-x86_64/sdk
   t2cc=$t2cc_path/t2cc_osx
   # macport paths
   pathmunge /opt/local/bin
   pathmunge /opt/local/sbin
   # Development paths
-  pathmunge /Developer/SDKs/android.sdk/platform-tools
+  pathmunge $ANDROID_HOME/platform-tools
+  pathmunge $ANDROID_HOME/tools
 #  PATH=$PATH:/Volumes/CyanogenMod/bin
   pathmunge /Developer/usr/bin
 elif [ "$OSTYPE" = 'cygwin' ]; then
