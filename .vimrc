@@ -83,3 +83,5 @@ endif
 "    let files = system("ack-grep " + search)
 "    inputlist (files);
 "}
+"
+execute pathogen#infect()
