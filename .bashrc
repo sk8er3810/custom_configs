@@ -232,3 +232,16 @@ if [ -f "$HOME/.bashrc_work" ]; then
 fi
 
 REPOS=~/repos
+
+export PATH=$PATH:~/bin
+export JAVA_HOME=/usr/lib/jvm/jdk1.6.0_33/
+#export USE_CCACHE=1
+#export CCACHE_DIR=/media/ldata/.ccache/
+export ADK=~/Downloads/android-sdk-linux/
+#export PATH=$PATH:$ADK/tools/
+#export PATH=$PATH:$ADK/platform-tools/
+#export LD_LIBRARY_PATH=$ADK/tools/lib/
+
+alias myemu='LD_LIBRARY_PATH=$ADK/tools/lib/ ${ADK}/tools/emulator-x86 -avd MyEmu -kernel ${ADK}/system-images/android-19/x86/kernel-qemu -qemu -m 1024 -enable-kvm'
+#git ls-remote -h http://android.googlesource.com/platform/manifest.git
+
