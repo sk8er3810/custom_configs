@@ -193,26 +193,28 @@ fi
 pathmunge ${HOME}/bin
 t2cc_path=~/.scripts/t2cc/
 if [ "$(uname -s)" = 'Darwin' ]; then
-  export ANDROID_HOME=$HOME/Downloads/adt-bundle-mac-x86_64/sdk
+  export ANDROID_HOME=$HOME/SDKs/google/android/adt-bundle-mac-x86_64/sdk
   t2cc=$t2cc_path/t2cc_osx
   # macport paths
   pathmunge /opt/local/bin
   pathmunge /opt/local/sbin
   # Development paths
-  pathmunge $ANDROID_HOME/platform-tools
-  pathmunge $ANDROID_HOME/tools
 #  PATH=$PATH:/Volumes/CyanogenMod/bin
   pathmunge /Developer/usr/bin
 elif [ "$OSTYPE" = 'cygwin' ]; then
-  pathmunge /cygdrive/c/Software/android-sdk-windows/platform-tools
+#  export ANDROID_HOME=$HOME/SDKs/google/android/adt-bundle-mac-x86_64/sdk
   t2cc=$t2cc_path/t2cc_win64.exe
 elif [ "$OSTYPE" = 'linux-gnu' ]; then
+#  export ANDROID_HOME=$HOME/SDKs/google/android/adt-bundle-linux-x86_64/sdk
   if [ `uname -m` =  "x86_64" ]; then
     t2cc=$t2cc_path/t2cc_64
   else
     t2cc=$t2cc_path/t2cc_32
   fi
-  pathmunge /tools/android-sdk-linux/platform-tools
+fi
+if [ $ANDROID_HOME ]  && [ -f $ANDROID_HOME/platform-tools/adb ]; then
+  pathmunge $ANDROID_HOME/platform-tools
+  pathmunge $ANDROID_HOME/tools
 fi
 
 hcolor="\[\e[`$t2cc $HOSTNAME `m\]"
@@ -228,7 +230,6 @@ export PS4='+[$(basename $0).$LINENO]> '
 
 export JAVA_HOME=/usr/lib/jvm/java-6-sun/
 export NODE_PATH=/usr/local/lib:/usr/local/lib/node_modules
-source ~/.scripts/ps4.sh
 
 # include .bashrc_work if it exists any sensitive info must go in .bashrc_work
 if [ -f "$HOME/.bashrc_work" ]; then

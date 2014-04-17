@@ -1,12 +1,11 @@
-#!/bin/bash
-
-# random one liners
+# random one liners and other multiline functions
 #aptitude search -F '%p' '~i' > 2.txt
 #dpkg -l | awk '/^[hi]i/{print }' > 1.txt
 #dpkg --get-selections > dpkg_-get--selections.txt
 #let ++CONO ; echo "yabba dabba do ${CONO}" >> file2.txt ; hg commit -m "this is a test commit ${CONO}" -v --debug; hg push -v --debug
 
-#!/bin/bash
+hg clone ssh+http://<URL>/svn/<project>  <local-dir-name>
+
 #The Dell Latitude E6500 gets to be about 30 seconds ahead per week
 #Rewind the clock 30 seconds
 #/usr/bin/date -s "$(/usr/bin/date -d '30 seconds ago')" 
