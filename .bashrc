@@ -190,21 +190,26 @@ if ! echo $PATH | egrep -q "(^|:)$1($|:)" ; then
 fi
 }
 
-pathmunge ${HOME}/bin
+if [ -f $HOME/bin ]; then
+  pathmunge ${HOME}/bin
+fi
+
 t2cc_path=~/.scripts/t2cc/
 if [ "$(uname -s)" = 'Darwin' ]; then
-  export ANDROID_HOME=$HOME/SDKs/google/android/adt-bundle-mac-x86_64/sdk
+  # JAVA HOME for OSX Maverick
+  export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Home/
   t2cc=$t2cc_path/t2cc_osx
   # macport paths
-  pathmunge /opt/local/bin
-  pathmunge /opt/local/sbin
-  # Development paths
-#  PATH=$PATH:/Volumes/CyanogenMod/bin
-  pathmunge /Developer/usr/bin
+  export ANDROID_HOME=$HOME/SDKs/google/android/adt-bundle-mac-x86_64/sdk
+  if [ -d /opt/local/bin ]; then
+    pathmunge /opt/local/bin
+    pathmunge /opt/local/sbin
+  fi
 elif [ "$OSTYPE" = 'cygwin' ]; then
 #  export ANDROID_HOME=$HOME/SDKs/google/android/adt-bundle-mac-x86_64/sdk
   t2cc=$t2cc_path/t2cc_win64.exe
 elif [ "$OSTYPE" = 'linux-gnu' ]; then
+  export JAVA_HOME=/usr/lib/jvm/java-6-sun/
 #  export ANDROID_HOME=$HOME/SDKs/google/android/adt-bundle-linux-x86_64/sdk
   if [ `uname -m` =  "x86_64" ]; then
     t2cc=$t2cc_path/t2cc_64
@@ -217,6 +222,8 @@ if [ $ANDROID_HOME ]  && [ -f $ANDROID_HOME/platform-tools/adb ]; then
   pathmunge $ANDROID_HOME/tools
 fi
 
+export NODE_PATH=/usr/local/lib:/usr/local/lib/node_modules
+
 hcolor="\[\e[`$t2cc $HOSTNAME `m\]"
 # Set my prompt variable
 # example output
@@ -228,8 +235,6 @@ $ "
 # why shouldn't this be here
 export PS4='+[$(basename $0).$LINENO]> '
 
-export JAVA_HOME=/usr/lib/jvm/java-6-sun/
-export NODE_PATH=/usr/local/lib:/usr/local/lib/node_modules
 
 # include .bashrc_work if it exists any sensitive info must go in .bashrc_work
 if [ -f "$HOME/.bashrc_work" ]; then
