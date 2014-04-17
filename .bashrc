@@ -223,6 +223,9 @@ export PS1="-${LDELIM}${txtgrn}\u${txtrst}@${hcolor}${HOSTNAME}${txtrst}${RDELIM
 -${LDELIM}\${SCM_BRANCH}${RDELIM}-${LDELIM}${bldblu}\${newPWD}${txtrst}${RDELIM}\${fill}-\${TIME}-\n\
 $ "
 
+# why shouldn't this be here
+export PS4='+[$(basename $0).$LINENO]> '
+
 export JAVA_HOME=/usr/lib/jvm/java-6-sun/
 export NODE_PATH=/usr/local/lib:/usr/local/lib/node_modules
 source ~/.scripts/ps4.sh
