@@ -84,4 +84,4 @@ endif
 "    inputlist (files);
 "}
 "
-execute pathogen#infect()
+"execute pathogen#infect()

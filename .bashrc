@@ -190,6 +190,7 @@ if ! echo $PATH | egrep -q "(^|:)$1($|:)" ; then
 fi
 }
 
+pathmunge ${HOME}/bin
 t2cc_path=~/.scripts/t2cc/
 if [ "$(uname -s)" = 'Darwin' ]; then
   export ANDROID_HOME=$HOME/Downloads/adt-bundle-mac-x86_64/sdk
@@ -231,4 +232,3 @@ if [ -f "$HOME/.bashrc_work" ]; then
     . "$HOME/.bashrc_work"
 fi
 
-REPOS=~/repos
