@@ -1,4 +1,0 @@
-aptitude search -F '%p' '~i' > 2.txt
-dpkg -l | awk '/^[hi]i/{print }' > 1.txt
-dpkg --get-selections > dpkg_-get--selections.txt
-let ++CONO ; echo "yabba dabba do ${CONO}" >> file2.txt ; hg commit -m "this is a test commit ${CONO}" -v --debug; hg push -v --debug

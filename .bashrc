@@ -190,29 +190,45 @@ if ! echo $PATH | egrep -q "(^|:)$1($|:)" ; then
 fi
 }
 
+if [ -f $HOME/bin ]; then
+  pathmunge ${HOME}/bin
+fi
+
 t2cc_path=~/.scripts/t2cc/
 if [ "$(uname -s)" = 'Darwin' ]; then
-  export ANDROID_HOME=$HOME/Downloads/adt-bundle-mac-x86_64/sdk
+  # JAVA HOME for OSX Maverick
+  export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Home/
   t2cc=$t2cc_path/t2cc_osx
   # macport paths
-  pathmunge /opt/local/bin
-  pathmunge /opt/local/sbin
-  # Development paths
-  pathmunge $ANDROID_HOME/platform-tools
-  pathmunge $ANDROID_HOME/tools
-#  PATH=$PATH:/Volumes/CyanogenMod/bin
-  pathmunge /Developer/usr/bin
+  export ANDROID_HOME=$HOME/SDKs/google/android/adt-bundle-mac-x86_64/sdk
+  if [ -d /opt/local/bin ]; then
+    pathmunge /opt/local/bin
+    pathmunge /opt/local/sbin
+  fi
 elif [ "$OSTYPE" = 'cygwin' ]; then
-  pathmunge /cygdrive/c/Software/android-sdk-windows/platform-tools
+#  export ANDROID_HOME=$HOME/SDKs/google/android/adt-bundle-mac-x86_64/sdk
   t2cc=$t2cc_path/t2cc_win64.exe
 elif [ "$OSTYPE" = 'linux-gnu' ]; then
+#  export JAVA_HOME=/usr/lib/jvm/java-6-sun/
+  export ANDROID_HOME=/opt/android-sdk-linux/
+#  export JAVA_HOME=/usr/lib/jvm/jdk1.6.0_33/
+# android OS build vars
+#  export LD_LIBRARY_PATH=$ADK/tools/lib/
+#  export USE_CCACHE=1
+#  export CCACHE_DIR=/media/ldata/.ccache/
+  pathmunge $HOME/bin
   if [ `uname -m` =  "x86_64" ]; then
     t2cc=$t2cc_path/t2cc_64
   else
     t2cc=$t2cc_path/t2cc_32
   fi
-  pathmunge /tools/android-sdk-linux/platform-tools
 fi
+if [ $ANDROID_HOME ]  && [ -f $ANDROID_HOME/platform-tools/adb ]; then
+  pathmunge $ANDROID_HOME/platform-tools
+  pathmunge $ANDROID_HOME/tools
+fi
+
+#export NODE_PATH=/usr/local/lib:/usr/local/lib/node_modules
 
 hcolor="\[\e[`$t2cc $HOSTNAME `m\]"
 # Set my prompt variable
@@ -222,26 +238,16 @@ export PS1="-${LDELIM}${txtgrn}\u${txtrst}@${hcolor}${HOSTNAME}${txtrst}${RDELIM
 -${LDELIM}\${SCM_BRANCH}${RDELIM}-${LDELIM}${bldblu}\${newPWD}${txtrst}${RDELIM}\${fill}-\${TIME}-\n\
 $ "
 
-export JAVA_HOME=/usr/lib/jvm/java-6-sun/
-export NODE_PATH=/usr/local/lib:/usr/local/lib/node_modules
-source ~/.scripts/ps4.sh
+# why shouldn't this be here
+export PS4='+[$(basename $0).$LINENO]> '
+
 
 # include .bashrc_work if it exists any sensitive info must go in .bashrc_work
 if [ -f "$HOME/.bashrc_work" ]; then
     . "$HOME/.bashrc_work"
 fi
 
-REPOS=~/repos
 
-export PATH=$PATH:~/bin
-export JAVA_HOME=/usr/lib/jvm/jdk1.6.0_33/
-#export USE_CCACHE=1
-#export CCACHE_DIR=/media/ldata/.ccache/
-export ADK=~/Downloads/android-sdk-linux/
-#export PATH=$PATH:$ADK/tools/
-#export PATH=$PATH:$ADK/platform-tools/
-#export LD_LIBRARY_PATH=$ADK/tools/lib/
-
-alias myemu='LD_LIBRARY_PATH=$ADK/tools/lib/ ${ADK}/tools/emulator-x86 -avd MyEmu -kernel ${ADK}/system-images/android-19/x86/kernel-qemu -qemu -m 1024 -enable-kvm'
+alias myemu='LD_LIBRARY_PATH=$ANDROID_HOME/tools/lib/ ${ADK}/tools/emulator-x86 -avd MyEmu -kernel ${ADK}/system-images/android-19/x86/kernel-qemu -qemu -m 1024 -enable-kvm'
 #git ls-remote -h http://android.googlesource.com/platform/manifest.git
 

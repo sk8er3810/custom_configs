@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for f in $(find repos/mike-git/ -maxdepth 1 | grep -v '/.git/' ); 
+for f in $(find $HOME/Documents/mike.git -maxdepth 1 | grep -v '/\.git\b' | grep 'mike\.git\/' ); 
 do 
     rm -rf $(basename ${f});
     ln -s ${f};
